@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+
+  "name": "Leetfree Modifier",
+  "version": "0.2.0",
+  "description": "add on functionality for leetfree.com",
+  "browser_action": {
+    "default_icon": "favicon.ico",
+    "default_popup": "index.html"
+  },
+
+  "content_scripts": [
+    {
+      "css": ["style.css"],
+      "js": ["content.js"],
+      "matches": ["https://leetfree.com/*"]
+    }
+  ],
+  "web_accessible_resources": ["script.js"]
+}
