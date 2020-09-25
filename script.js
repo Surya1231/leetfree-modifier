@@ -2,7 +2,9 @@ var LOCAL_BASE = "COMPLETED";
 var completed = {};
 var solved = 0;
 var review = 0;
+var local_rows = {};
 
+// Extra column adding functionality
 function process(row) {
   th = row.getElementsByTagName("th");
   if (th.length > 0) {
@@ -42,6 +44,12 @@ function addExtraCol() {
   }
 }
 
+function updateUI() {
+  document.getElementById("solved").innerHTML = solved;
+  document.getElementById("review").innerHTML = review;
+}
+
+// Local data communication
 function loadLocal() {
   completed = JSON.parse(localStorage.getItem(LOCAL_BASE)) || {};
 }
@@ -60,11 +68,7 @@ function clearLocalData() {
   }
 }
 
-function updateUI() {
-  document.getElementById("solved").innerHTML = solved;
-  document.getElementById("review").innerHTML = review;
-}
-
+// Event Handling functions
 function markReview(id) {
   completed[id] = 2;
   saveToLocal(completed);
@@ -86,10 +90,13 @@ function markIncomplete(id) {
   updateUI();
 }
 
+function review_questions() {}
+
 function start() {
   loadLocal();
   addExtraCol();
   document.getElementById("start").disabled = true;
+  document.getElementById("review_q").disabled = false;
   var body = document.getElementsByTagName("body")[0];
   body.addEventListener("click", addExtraCol);
 
@@ -106,7 +113,8 @@ function initial() {
   var head = document.getElementsByClassName("blog-header")[0];
   head.innerHTML =
     "<button class='btn btn-info' id='start' onclick='start()'> Start Extention </button>  " +
-    "<button class='btn btn-danger special' onclick='clearLocalData()'> Clear Data </button>" +
+    "<button class='btn btn-warning ml-2' id='review_q' onclick='review_questions()' disabled> Review Questions </button>" +
+    "<button class='btn btn-danger ml-2' onclick='clearLocalData()'> Clear Data </button>" +
     "<p class='text-danger'> Before starting extention please make sure you sort questions according to your need. once extention is started the sorting will be disabled. </p>" +
     "<div class='alert alert-info' role='alert'> Solved Questions = <span id='solved' style='margin-right:20px'>0</span>  Mark for Review = <span id='review'>0</span></div>";
 }
