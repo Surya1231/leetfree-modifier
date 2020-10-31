@@ -1,3 +1,11 @@
 .ml-2 {
   margin-left: 10px;
 }
+
+.bg-warning {
+  background-color: #fcf8e3 !important;
+}
+
+.bg-success {
+  background-color: #dff0d8 !important;
+}

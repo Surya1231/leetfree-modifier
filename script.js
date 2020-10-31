@@ -12,28 +12,35 @@ function process(row) {
       row.innerHTML +=
         '<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" style="width: 88px;" aria-label="Difficulty: activate to sort column ascending"> Solved</th>';
   } else {
+    console.log(row);
     td = row.getElementsByTagName("td");
     var id = td[0].innerHTML;
     for (var i = 6; i < td.length; i++) td[i].remove();
 
     if (completed[id]) {
-      if (completed[id] == 1)
+      if (completed[id] == 1) {
         row.innerHTML +=
           "<td class='bg-success'> <button class='btn btn-success' onclick=markIncomplete('" +
           id +
           "')> Undo </button>  </td>";
-      else
+        row.classList.add("bg-success");
+      } else {
         row.innerHTML +=
           "<td class='bg-warning'> <button class='btn btn-warning' onclick=markIncomplete('" +
           id +
           "')> Undo </button>  </td>";
-    } else
+        row.classList.add("bg-warning");
+      }
+    } else {
       row.innerHTML +=
         "<td> <div style='display:flex'> <button class='btn btn-danger' style='margin-right:2px' onclick=markCompleted('" +
         id +
         "')> D </button>  <button class='btn btn-danger' onclick=markReview('" +
         id +
         "')> R </button></td> </div>";
+      row.classList.remove("bg-success");
+      row.classList.remove("bg-warning");
+    }
   }
 }
 
